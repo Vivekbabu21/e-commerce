@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .order-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .order-card img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 4px;
+        }
+        .order-card h5 {
+            margin-top: 0;
+            font-size: 1.25rem;
+        }
+        .order-card .product-info {
+            margin-bottom: 10px;
+        }
+        .order-card .product-info strong {
+            display: block;
+        }
+        .review-comment {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Your Orders
+            <form action="/api/category" method="get" style="display: inline;">
+                <button type="submit" class="btn btn-primary">Home</button>
+            </form>
+        </h2>
+        <% if (orders.length > 0) { %>
+            <div class="row">
+                <% orders.forEach(order => { %>
+                    <div class="col-md-12 mb-4">
+                        <div class="order-card">
+                            <p><strong>Total Amount:</strong> $<%= order.totalAmount %></p>
+                            <% order.products.forEach(product => { %>
+                                <div class="product-info">
+                                    <strong>Product:</strong> <%= product.productId.brand %> <%= product.productId.name %>
+                                    <img src="<%= product.productId.imageUrl %>" alt="<%= product.productId.name %>">
+                                    <strong>Price:</strong> $<%= product.productId.price %>
+                                    <strong>Quantity:</strong> <%= product.quantity %>
+                                    <strong>Order Price:</strong> $<%= product.productId.price * product.quantity %>
+                                    <strong>Order Date:</strong> <%= product.orderedAt %>
+                                    <% if (product.review && product.review.rating && product.review.comment) { %>
+                                        <div class="card mt-3">
+                                            <div class="card-header">
+                                                Review
+                                            </div>
+                                            <div class="card-body">
+                                                <h6 class="card-subtitle mb-2 text-muted">Rating: <%= product.review.rating %> / 5</h6>
+                                                <p class="card-text"><%= product.review.comment %></p>
+                                                <footer class="blockquote-footer">
+                                                    Reviewed By: <%= product.review.userId.name %>
+                                                </footer>
+                                                <footer class="blockquote-footer">
+                                                    Created At: <%= product.review.createdAt %>
+                                                </footer>
+                                                <form action="/api/review/update/<%= product.reviewId._id %>" method="get" style="display: inline;">
+                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                </form>
+                                                <form action="/api/review/<%= product.reviewId._id %>?_method=DELETE" method="post" style="display: inline;">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    <% } else { %>
+                                        <div class="mt-3" >
+                                            <form action="/api/review/<%= product.productId._id %>" method="get" class="mt-2">
+                                                <button type="submit" class="btn btn-primary">Add Review</button>
+                                            </form>
+                                            <input type="hidden" name="productId" value="<%= product.productId._id %>">
+                                        
+                                        </div>
+                                    <% } %>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No orders found.</p>
+        <% } %>
+    </div>
+</body>
+</html>

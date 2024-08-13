@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<style>
+    .card a {
+            color: inherit;
+            text-decoration: none;
+        }
+</style>
+<body>
+    <h2>Cart
+        <form action="/api/category" method="get" style="display: inline;">
+            <button type="submit" class="btn btn-primary">Home</button>
+        </form>
+    </h2>
+    <% if (cartItems.length > 0) { %>
+
+    <div class="card">
+        <ul>
+            <% cartItems.forEach(cart => { %>
+                <li>
+                    <a href="/api/carts/<%= cart._id %>"><%= cart.productId.brand %> <%= cart.productId.name %></a> <br>
+                    <img src="<%= cart.productId.imageUrl %>" alt="<%= cart.productId.name %>" style="width: 100px; height: auto;"><br>
+
+                    <div>
+                        <p><strong>Quantity:</strong> <%= cart.quantity %></p>
+                        <form action="/api/carts/<%= cart._id %>?_method=DELETE" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </div>
+                     
+                </li>
+            <% }) %>
+        </ul>
+        <form action="/api/orders/order" method="post">
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+    </div>
+    <% } else { %>
+        <p>No Items found.</p>
+    <% } %>
+</body>
+</html>
