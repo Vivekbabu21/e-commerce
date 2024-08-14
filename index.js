@@ -46,8 +46,8 @@ app.use(cookieParser());
 
 
 
-
-mongoose.connect('mongodb://localhost:27017/E-commerce')
+const mongoURI = process.env.MONGODB_URI;
+mongoose.connect(mongoURI)
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...', err));
 
@@ -67,6 +67,10 @@ app.use('/api/wishlist',login,wishlistRouter);
 app.use(methodOverride('_method'));
 
 app.use(login);
+
+app.get('/', async(req,res)=>{
+    res.render('home');
+})
 
 
 
