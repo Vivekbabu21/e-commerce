@@ -7,7 +7,9 @@ const bcrypt = require('bcrypt');
 
 const getUsers = async (req, res) => {
     const users =await User.find().sort('name').select('name -_id');
-    res.send(users);
+    // res.send(users);
+    res.render('register');
+
     
 }
 
