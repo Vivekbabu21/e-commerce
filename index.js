@@ -10,7 +10,6 @@ const categoryRouter = require('./category/categoryRoutes');
 const reviewRouter = require('./review/reviewRoutes.js');
 const forgetpassword=require('./forgotPassword/forgetpassword.js');
 const resetpassword=require('./forgotPassword/resetpassword.js');
-const otpRouter = require('./otp/otpRoutes.js');
 const login  = require('./middleware/login');
 const logout = require('./login/logout');
 const cookieParser = require('cookie-parser');
@@ -62,7 +61,6 @@ app.use('/api/login',loginRouter);
 app.use('/logout',logout);
 app.use('/api/forgetpassword',forgetpassword);
 app.use('/resetpassword',resetpassword);
-app.use('/', otpRouter);
 app.use('/api/wishlist',login,wishlistRouter);
 app.use(methodOverride('_method'));
 
