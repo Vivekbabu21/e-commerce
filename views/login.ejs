@@ -47,7 +47,7 @@
         .btn-forgot-password {
             text-align: center; 
             display: block; 
-            margin-top: 20px; 
+            margin-top: 20px;
         }
         .btn-signup {
             text-align: center;
@@ -62,11 +62,11 @@
     <form action="/api/login" method="POST">
         <div>
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" required>
         </div><br>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" required>
         </div><br>
         <button type="submit">Login</button>
         <br><br>

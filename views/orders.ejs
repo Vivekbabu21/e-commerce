@@ -55,7 +55,7 @@
                                     <strong>Price:</strong> $<%= product.productId.price %>
                                     <strong>Quantity:</strong> <%= product.quantity %>
                                     <strong>Order Price:</strong> $<%= product.productId.price * product.quantity %>
-                                    <strong>Order Date:</strong> <%= product.orderedAt %>
+                                    <strong>Order Date:</strong> <%= new Date(product.orderedAt).toLocaleDateString('en-US') %>
                                     <% if (product.review && product.review.rating && product.review.comment) { %>
                                         <div class="card mt-3">
                                             <div class="card-header">
@@ -68,7 +68,7 @@
                                                     Reviewed By: <%= product.review.userId.name %>
                                                 </footer>
                                                 <footer class="blockquote-footer">
-                                                    Created At: <%= product.review.createdAt %>
+                                                    Created At: <%= new Date(product.review.createdAt).toLocaleDateString('en-US') %>
                                                 </footer>
                                                 <form action="/api/review/update/<%= product.reviewId._id %>" method="get" style="display: inline;">
                                                     <button type="submit" class="btn btn-primary">Edit</button>

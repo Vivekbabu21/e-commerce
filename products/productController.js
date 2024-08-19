@@ -31,7 +31,7 @@ const getProducts = async (req, res) => {
     let query = {};
 
         if (req.query.category) {
-            const category = await Category.findOne({ name: req.query.category });
+            const category = await Category.findOne({ name: { $regex:new RegExp(req.query.category, 'i') }});
 
             if (category) {
                 query.category = category._id;
@@ -43,7 +43,11 @@ const getProducts = async (req, res) => {
         //     query.brand = req.query.brand;
         // }
         if (req.query.name) {
-            query.name = { $regex: new RegExp(req.query.name, 'i') }; 
+            // query.name = { $regex: new RegExp(req.query.name, 'i') }; 
+            query.$or = [
+                { name: { $regex: new RegExp(req.query.name, 'i') } },
+                { brand: { $regex: new RegExp(req.query.name, 'i') } }
+            ];
         }
         
         const products = await Product.find(query).populate('category');

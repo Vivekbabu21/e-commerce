@@ -63,7 +63,7 @@ const addCart = async (req, res) => {
         if (carts.length > 0) {
             total += carts[0].totalPrice;
         }
-        if(total>50000){
+        if(total>230000){
             return res.status(400).send("Order Amount exceeded");
         }
         else{

@@ -85,9 +85,9 @@ const getCategory = async (req, res) => {
 
 const updateCategory = async (req, res) => {
    try{
-    console.log('Request Params ID:', req.params.id);
-    console.log('Request Body:', req.body);
-    console.log('Request File:', req.file);
+    // console.log('Request Params ID:', req.params.id);
+    // console.log('Request Body:', req.body);
+    // console.log('Request File:', req.file);
     if (!req.params.id) {
         return res.status(400).send({ message: 'Category ID is required' });
     }
