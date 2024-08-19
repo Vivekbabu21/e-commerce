@@ -52,19 +52,19 @@ mongoose.connect(mongoURI)
 
 app.use(express.json());
 app.use('/api/users',usersRouter);
-app.use('/api/products',login,productsRouter);
-app.use('/api/orders',login,ordersRouter);
-app.use('/api/carts',login, cartsRouter);
-app.use('/api/review',login,reviewRouter);
-app.use('/api/category',login,categoryRouter);
+app.use('/api/products',productsRouter);
+app.use('/api/orders',ordersRouter);
+app.use('/api/carts', cartsRouter);
+app.use('/api/review',reviewRouter);
+app.use('/api/category',categoryRouter);
 app.use('/api/login',loginRouter);
 app.use('/logout',logout);
 app.use('/api/forgetpassword',forgetpassword);
 app.use('/resetpassword',resetpassword);
-app.use('/api/wishlist',login,wishlistRouter);
+app.use('/api/wishlist',wishlistRouter);
 app.use(methodOverride('_method'));
 
-app.use(login);
+// app.use(login);
 
 app.get('/', async(req,res)=>{
     res.render('home');

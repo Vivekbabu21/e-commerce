@@ -8,12 +8,17 @@ router.use(methodOverride('_method'));
 
 const {addReview,getReviewsByProduct,addReviewPage,deleteReview,editReview,editReviewPage} = require('./reviewController');
 
-router.get('/:id',addReviewPage);
-router.post('/', addReview );
-router.get('/:id', getReviewsByProduct);
-router.delete('/:id',deleteReview);
-router.put('/update/:id',editReview);
-router.get('/update/:id',editReviewPage);
+const login = require('../middleware/login');
+
+
+router.use(login);
+
+router.get('/:id',login,addReviewPage);
+router.post('/',login, addReview );
+router.get('/:id',login, getReviewsByProduct);
+router.delete('/:id',login,deleteReview);
+router.put('/update/:id',login,editReview);
+router.get('/update/:id',login,editReviewPage);
 
 
 

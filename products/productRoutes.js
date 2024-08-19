@@ -24,9 +24,11 @@ const upload = multer({ storage: storage  });
 
 router.use('/uploads', express.static(path.join(__dirname,'uploads')));
 
+router.use(login);
+
 router.post('/', upload.single('image'),addProduct);
-router.get('/',getProducts);
-router.get('/:id', getProduct);
+router.get('/',login,getProducts);
+router.get('/:id',login, getProduct);
 router.put('/:id', updateProduct);
 router.delete('/:id', deleteProduct);
 

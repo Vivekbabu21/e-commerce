@@ -11,10 +11,12 @@ const { addToWishlist,removeWishlist,getWishlistItems} = require('./wishlistCont
 
 
 
-router.post('/add/:id',addToWishlist );
+router.use(login);
 
-router.delete('/remove/:id', removeWishlist);
+router.post('/add/:id',login,addToWishlist );
 
-router.get('/', getWishlistItems );
+router.delete('/remove/:id',login, removeWishlist);
+
+router.get('/',login, getWishlistItems );
 
 module.exports = router;

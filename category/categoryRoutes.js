@@ -4,6 +4,7 @@ const router= express.Router();
 const path = require('path');
 
 
+
 const {addCategory,getCategory,getCategories,updateCategory,deleteCategory} = require('./categoryController');
 const login = require('../middleware/login');
 
@@ -23,8 +24,9 @@ const upload = multer({ storage: storage  });
 
 router.use('/uploads', express.static(path.join(__dirname,'uploads')));
 
+router.use(login);
 router.post('/', upload.single('image'),addCategory);
-router.get('/',getCategories);
+router.get('/',login,getCategories);
 router.get('/:id', getCategory);
 router.put('/:id',upload.single('image'), updateCategory);
 router.delete('/:id', deleteCategory);

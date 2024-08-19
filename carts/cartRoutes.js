@@ -9,10 +9,12 @@ const { addCart,getCarts,getCart,deleteCart} = require('./cartController');
 const login = require('../middleware/login');
 
 
-router.post('/',addCart);
-router.get('/', getCarts);
-router.get('/:id', getCart);
-router.delete('/:id', deleteCart);
+router.use(login);
+
+router.post('/',login,addCart);
+router.get('/',login, getCarts);
+router.get('/:id',login, getCart);
+router.delete('/:id',login, deleteCart);
 
 
 
