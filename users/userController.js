@@ -27,7 +27,9 @@ const addUser = async (req, res) => {
     user.password=await bcrypt.hash(user.password,salt);
     
     await user.save();
-    res.send(user);
+    // res.send(user);
+    res.render('login');
+
     }
     catch(ex){
         console.log(ex);
