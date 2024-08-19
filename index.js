@@ -46,11 +46,8 @@ app.use(cookieParser());
 
 
 
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/E-commerce';
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+const mongoURI = process.env.MONGODB_URI;
+mongoose.connect(mongoURI)
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...', err));
 
