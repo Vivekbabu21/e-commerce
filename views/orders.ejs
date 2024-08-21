@@ -47,14 +47,14 @@
                 <% orders.forEach(order => { %>
                     <div class="col-md-12 mb-4">
                         <div class="order-card">
-                            <p><strong>Total Amount:</strong> $<%= order.totalAmount %></p>
+                            <p><strong>Total Amount:</strong> <%= order.totalAmount %></p>
                             <% order.products.forEach(product => { %>
                                 <div class="product-info">
-                                    <strong>Product:</strong> <%= product.productId.brand %> <%= product.productId.name %>
+                                    <strong>Product:</strong><%= product.productId.brand %> <%= product.productId.name %>
                                     <img src="<%= product.productId.imageUrl %>" alt="<%= product.productId.name %>">
-                                    <strong>Price:</strong> $<%= product.productId.price %>
+                                    <strong>Price:</strong> <%= product.productId.price %>
                                     <strong>Quantity:</strong> <%= product.quantity %>
-                                    <strong>Order Price:</strong> $<%= product.productId.price * product.quantity %>
+                                    <strong>Order Price:</strong> <%= product.productId.price * product.quantity %>
                                     <strong>Order Date:</strong> <%= new Date(product.orderedAt).toLocaleDateString('en-US') %>
                                     <% if (product.review && product.review.rating && product.review.comment) { %>
                                         <div class="card mt-3">

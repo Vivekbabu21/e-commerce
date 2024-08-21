@@ -30,8 +30,21 @@ const addCart = async (req, res) => {
     try {
         const { productId, quantity } = req.body;
         const userId = req.user._id;
-        
 
+        if (quantity <= 0) {
+            return res.status(400).send('Quantity must be greater than zero.');
+        }
+
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(400).send('Invalid product ID');
+        }
+
+
+        if (quantity > product.stock) {
+            return res.status(400).send(`Only ${product.stock} items are available in stock.`);
+        }
+        
         const cart = new Cart({
             userId,
             productId,
@@ -39,10 +52,7 @@ const addCart = async (req, res) => {
         });
 
         let totalAmount = 0;
-        const product = await Product.findById(productId);
-        if (!product) {
-            return res.status(400).send('Invalid product ID');
-        }
+        
         totalAmount = product.price*quantity;
 
         cart.totalAmount = totalAmount;
@@ -63,7 +73,7 @@ const addCart = async (req, res) => {
         if (carts.length > 0) {
             total += carts[0].totalPrice;
         }
-        if(total>230000){
+        if(total>250000){
             return res.status(400).send("Order Amount exceeded");
         }
         else{
@@ -75,7 +85,9 @@ const addCart = async (req, res) => {
         // res.send(cart);
         const user = await User.find({userId:req.user._id});
 
-        res.render('cart',{cartItems,user});
+        // res.render('cart',{cartItems,user});
+        res.redirect(`/api/carts/${userId}`);
+
 
 
         }
